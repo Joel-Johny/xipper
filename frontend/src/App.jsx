@@ -7,9 +7,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import HotelListings from "./pages/HotelListings";
-import HotelDetail from "./pages/HotelDetails";
+import HotelDetails from "./pages/HotelDetails";
 import BookingForm from "./pages/BookingForm";
 import MyBookings from "./pages/MyBookings";
+import CheckInForm from "./pages/CheckInForm";
+
 function App() {
   return (
     <Router>
@@ -31,7 +33,7 @@ function App() {
               path="/hotels/:id"
               element={
                 <PrivateRoute>
-                  <HotelDetail />
+                  <HotelDetails />
                 </PrivateRoute>
               }
             />
@@ -48,6 +50,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <MyBookings />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/checkin/:bookingId"
+              element={
+                <PrivateRoute>
+                  <CheckInForm />
                 </PrivateRoute>
               }
             />
