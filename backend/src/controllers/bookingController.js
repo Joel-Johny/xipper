@@ -115,8 +115,90 @@ const getBookingById = async (req, res) => {
   }
 };
 
+const checkInBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { familyMembers } = req.body;
+
+    // Validate request body
+    if (
+      !familyMembers ||
+      !Array.isArray(familyMembers) ||
+      familyMembers.length === 0
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Please provide family members details" });
+    }
+
+    // Validate family members data
+    for (const member of familyMembers) {
+      if (!member.name || !member.aadhaarNumber) {
+        return res.status(400).json({
+          message: "Each family member must have a name and Aadhaar number",
+        });
+      }
+
+      // Basic Aadhaar validation (12 digits)
+      if (member.aadhaarNumber.length !== 12) {
+        return res
+          .status(400)
+          .json({ message: "Aadhaar number must be 12 digits" });
+      }
+    }
+
+    // Find booking
+    const booking = await prisma.booking.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    // Check if booking belongs to user
+    if (booking.userId !== req.user.id) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to check in for this booking" });
+    }
+
+    // Check if booking is already checked in
+    if (booking.isCheckedIn) {
+      return res.status(400).json({ message: "Booking is already checked in" });
+    }
+
+    // Create check-in
+    const checkIn = await prisma.checkIn.create({
+      data: {
+        bookingId: booking.id,
+        familyMembers: familyMembers,
+      },
+    });
+
+    // Update booking status
+    const updatedBooking = await prisma.booking.update({
+      where: { id: booking.id },
+      data: {
+        isCheckedIn: true,
+      },
+      include: {
+        hotel: true,
+        checkIn: true,
+      },
+    });
+
+    res.status(200).json(updatedBooking);
+  } catch (error) {
+    console.error("Check-in error:", error);
+    res.status(500).json({ message: "Server error during check-in" });
+  }
+};
+
+// Update the exports at the bottom of the file
 module.exports = {
   createBooking,
   getUserBookings,
   getBookingById,
+  checkInBooking,
 };

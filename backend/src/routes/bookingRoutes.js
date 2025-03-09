@@ -6,6 +6,7 @@ const {
   createBooking,
   getUserBookings,
   getBookingById,
+  checkInBooking,
 } = require("../controllers/bookingController");
 
 // All booking routes require authentication
@@ -20,4 +21,5 @@ router.get("/user", protect, getUserBookings);
 // Get booking by ID
 router.get("/getBookingById/:id", protect, getBookingById);
 
+router.post("/:id/checkin", checkInBooking);
 module.exports = router;
