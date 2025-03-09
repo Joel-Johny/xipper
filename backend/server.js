@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./src/routes/authRoutes");
 const hotelRoutes = require("./src/routes/hotelRoutes");
+const bookingRoutes = require("./src/routes/bookingRoutes");
 // Load environment variables
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/hotel", hotelRoutes);
+app.use("/api/bookings", bookingRoutes);
 // Test route
 app.get("/", (req, res) => {
   res.send("Hotel Booking API is running");
