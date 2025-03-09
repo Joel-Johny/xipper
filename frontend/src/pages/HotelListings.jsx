@@ -7,7 +7,6 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import HotelCard from "../components/HotelCard";
 import API from "../api";
 export default function Home() {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const [hotels, setHotels] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
