@@ -40,16 +40,8 @@ const register = async (req, res) => {
     // Remove password from response
     const { password: _, ...userWithoutPassword } = newUser;
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: newUser.id },
-      process.env.JWT_SECRET || "hotel-booking-secret-key",
-      { expiresIn: "1d" }
-    );
-
     res.status(201).json({
-      user: userWithoutPassword,
-      token,
+      message: "User registered successfully",
     });
   } catch (error) {
     console.error("Registration error:", error);
