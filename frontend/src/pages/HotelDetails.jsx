@@ -13,7 +13,6 @@ const HotelDetail = () => {
   const { token } = useAuth();
   const [hotel, setHotel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  console.log("Hotel Details");
   useEffect(() => {
     fetchHotelDetail();
   }, [id]);

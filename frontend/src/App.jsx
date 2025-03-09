@@ -7,7 +7,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import HotelListings from "./pages/HotelListings";
-import HotelDetails from "./pages/HotelDetails";
+import HotelDetail from "./pages/HotelDetails";
+import BookingForm from "./pages/BookingForm";
 
 function App() {
   return (
@@ -30,7 +31,15 @@ function App() {
               path="/hotels/:id"
               element={
                 <PrivateRoute>
-                  <HotelDetails />
+                  <HotelDetail />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/book/:hotelId"
+              element={
+                <PrivateRoute>
+                  <BookingForm />
                 </PrivateRoute>
               }
             />
