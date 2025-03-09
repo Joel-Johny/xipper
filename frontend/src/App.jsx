@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import HotelListings from "./pages/HotelListings";
+import HotelDetails from "./pages/HotelDetails";
 
 function App() {
   return (
@@ -20,7 +22,15 @@ function App() {
               path="/"
               element={
                 <PrivateRoute>
-                  <h1>Dashboard</h1>
+                  <HotelListings />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/hotels/:id"
+              element={
+                <PrivateRoute>
+                  <HotelDetails />
                 </PrivateRoute>
               }
             />
