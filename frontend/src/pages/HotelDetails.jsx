@@ -13,7 +13,6 @@ const HotelDetail = () => {
   const { token } = useAuth();
   const [hotel, setHotel] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  console.log("Hotel Details");
   useEffect(() => {
     fetchHotelDetail();
   }, [id]);
@@ -31,11 +30,7 @@ const HotelDetail = () => {
   };
 
   const handleBookNow = () => {
-    if (!token) {
-      navigate("/login", { state: { redirectTo: `/book/${id}` } });
-    } else {
-      navigate(`/book/${id}`);
-    }
+    navigate(`/book/${id}`);
   };
 
   if (isLoading) return <LoadingSpinner />;
