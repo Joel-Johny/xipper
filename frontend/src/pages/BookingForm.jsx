@@ -99,7 +99,7 @@ const BookingForm = () => {
       const response = await API.post("/bookings/create", bookingData);
 
       // Navigate to bookings page on success
-      navigate(`/bookings}`);
+      navigate(`/bookings`);
     } catch (error) {
       console.error("Error creating booking:", error);
       setError("Failed to create booking. Please try again.");
