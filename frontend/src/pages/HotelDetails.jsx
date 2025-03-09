@@ -30,11 +30,7 @@ const HotelDetail = () => {
   };
 
   const handleBookNow = () => {
-    if (!token) {
-      navigate("/login", { state: { redirectTo: `/book/${id}` } });
-    } else {
-      navigate(`/book/${id}`);
-    }
+    navigate(`/book/${id}`);
   };
 
   if (isLoading) return <LoadingSpinner />;

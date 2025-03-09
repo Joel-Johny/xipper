@@ -2,14 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useAuth } from "../context/AuthContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import API from "../api";
 const BookingForm = () => {
   // Get the hotel ID from the URL params
   const { hotelId } = useParams();
   const navigate = useNavigate();
-  const { token } = useAuth();
 
   // State variables
   const [hotel, setHotel] = useState(null);
@@ -21,7 +19,6 @@ const BookingForm = () => {
   const [totalNights, setTotalNights] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [error, setError] = useState("");
-
   // Fetch hotel details when component loads
   useEffect(() => {
     fetchHotelDetail();
@@ -102,7 +99,7 @@ const BookingForm = () => {
       const response = await API.post("/bookings/create", bookingData);
 
       // Navigate to bookings page on success
-      navigate(`/`);
+      navigate(`/bookings}`);
     } catch (error) {
       console.error("Error creating booking:", error);
       setError("Failed to create booking. Please try again.");
