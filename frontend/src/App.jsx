@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound";
 import HotelListings from "./pages/HotelListings";
 import HotelDetail from "./pages/HotelDetails";
 import BookingForm from "./pages/BookingForm";
-
+import MyBookings from "./pages/MyBookings";
 function App() {
   return (
     <Router>
@@ -40,6 +40,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <BookingForm />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/bookings"
+              element={
+                <PrivateRoute>
+                  <MyBookings />
                 </PrivateRoute>
               }
             />
